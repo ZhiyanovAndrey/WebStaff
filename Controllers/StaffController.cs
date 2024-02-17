@@ -8,7 +8,7 @@ namespace WebStaff.Controllers
     [ApiController]
     public class StaffController : ControllerBase
     {
-        // тестовый запрос
+        ////тестовый запрос
         //[HttpGet("test")]
         //public IActionResult Test()
         //{
@@ -16,6 +16,7 @@ namespace WebStaff.Controllers
         //    string t = $"";
         //    return Ok($"Привет! Сервер запущен {DateTime.Now.ToString("D")} в {DateTime.Now.ToString("t")}");
         //}
+
 
         private readonly Context _db;
 
@@ -26,11 +27,11 @@ namespace WebStaff.Controllers
 
 
         [HttpPost("create")]
-        IActionResult CreateEmploees([FromBody] Emploees staff)
+        IActionResult CreateEmploees([FromBody] Emploee staff)
         {
             if (staff != null)
             {
-                Emploees newPerson = new Emploees(staff.SureName, staff.Name, staff.ThirdName, staff.BirthDay, staff.EmploymentDate, staff.Salary);
+                Emploee newPerson = new Emploee(staff.SureName, staff.Name, staff.ThirdName, staff.BirthDay, staff.EmploymentDate, staff.Salary);
                 _db.Emploees.Add(newPerson);
                 _db.SaveChanges();
                 return Ok();

@@ -1,6 +1,6 @@
 ﻿namespace WebStaff.Models
 {
-    public class Emploees
+    public class Emploee
     {
         public int Id { get; set; }
         public string SureName { get; set; }
@@ -8,10 +8,10 @@
         public string ThirdName { get; set; }
         public DateTime BirthDay { get; set; }
         public DateTime EmploymentDate{ get; set; }
-        public int Salary { get; set; }    
+        public int Salary { get; set; }
 
-           public Emploees(string sureName, string name, string thirdName, 
-               DateTime birfday, DateTime employmentDate, int salary)
+        public Emploee(string sureName, string name, string thirdName,
+            DateTime birfday, DateTime employmentDate, int salary)
         {
             SureName = sureName;
             Name = name;
@@ -20,7 +20,7 @@
             EmploymentDate = employmentDate;
             Salary = salary;
 
-        } 
+        }
 
         //- “Создание/удаление/редактирование сотрудника”
 
