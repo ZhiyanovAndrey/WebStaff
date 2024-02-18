@@ -8,14 +8,14 @@ namespace WebStaff.Controllers
     [ApiController]
     public class StaffController : ControllerBase
     {
-        ////тестовый запрос
-        //[HttpGet("test")]
-        //public IActionResult Test()
-        //{
+        //тестовый запрос
+        [HttpGet("test")]
+        public IActionResult Test()
+        {
 
-        //    string t = $"";
-        //    return Ok($"Привет! Сервер запущен {DateTime.Now.ToString("D")} в {DateTime.Now.ToString("t")}");
-        //}
+            string t = $"";
+            return Ok($"Привет! Сервер запущен {DateTime.Now.ToString("D")} в {DateTime.Now.ToString("t")}");
+        }
 
 
         private readonly Context _db;
@@ -26,8 +26,8 @@ namespace WebStaff.Controllers
         }
 
 
-        [HttpPost("create")]
-        IActionResult CreateEmploees([FromBody] Emploee staff)
+        [HttpPost]
+        public IActionResult CreateEmploees([FromBody] Emploee staff)
         {
             if (staff != null)
             {
@@ -39,8 +39,22 @@ namespace WebStaff.Controllers
             return BadRequest();
         }
 
+        //        [HttpPost]
+        //        public IActionResult CreateUser([FromBody] UserModel userModel) // UserModel получаем из тела запроса
+        //        {
+        //            if (userModel != null)
+        //            {
+        //                // получим User из фронта UserModel
+        //                bool result = _usersService.Create(userModel);
+        //                return result ? Ok() : NotFound();
+        //            }
+        //            return BadRequest();
+        //        }
 
-
+        //        User newUser = new User(model.Surname, model.Name, model.Email,
+        //model.Password, model.Phone, model.Status, model.Photo);
+        //        _db.Users.Add(newUser);
+        //                _db.SaveChanges();
 
     }
 }
