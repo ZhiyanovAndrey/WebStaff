@@ -1,6 +1,7 @@
 ﻿using WebStaff.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using WebStaff.CommonModels;
 
 namespace WebStaff.Controllers
 {
@@ -27,11 +28,11 @@ namespace WebStaff.Controllers
 
 
         [HttpPost]
-        public IActionResult CreateEmploees([FromBody] Emploee staff)
+        public IActionResult CreateEmploees([FromBody] EmploeeModel emploeeModel)
         {
-            if (staff != null)
+            if (emploeeModel != null)
             {
-                Emploee newPerson = new Emploee(staff.SureName, staff.Name, staff.ThirdName, staff.BirthDay, staff.EmploymentDate, staff.Salary);
+                Emploee newPerson = new Emploee(emploeeModel.SurName, emploeeModel.Name, emploeeModel.ThirdName, emploeeModel.BirthDay, emploeeModel.EmploymentDate, emploeeModel.Salary);
                 _db.Emploees.Add(newPerson);
                 _db.SaveChanges();
                 return Ok();
