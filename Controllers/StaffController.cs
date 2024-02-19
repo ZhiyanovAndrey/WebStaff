@@ -48,7 +48,7 @@ namespace WebStaff.Controllers
 
 
         [HttpDelete("{id}")]
-        public bool Delete(int id)
+        public string Delete(int id)
         {
             Emploee emploee = _db.Emploees.FirstOrDefault(u => u.Id == id);
             if (emploee != null)
@@ -61,12 +61,15 @@ namespace WebStaff.Controllers
                 catch (Exception ex)
                 {
 
-                    Console.WriteLine(ex.Message);
+                   return ex.Message;
                 }
-           
+
+                return $"Cотрудника под номером {id} удален";
             }
-            return false;
+            return $"Нет сотрудника под номером {id}"; 
         }
+
+
 
 
 
