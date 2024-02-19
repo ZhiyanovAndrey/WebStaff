@@ -28,7 +28,7 @@ namespace WebStaff.Controllers
 
 
         [HttpPost]
-        public IActionResult CreateEmploees([FromBody] EmploeeModel emploeeModel)
+        public async Task<IActionResult> CreateEmploees([FromBody] EmploeeModel emploeeModel)
         {
             if (emploeeModel != null)
             {
@@ -43,32 +43,32 @@ namespace WebStaff.Controllers
 
 
 
-        //        private readonly ApplicationContext _db;
-        //private readonly UsersService _usersService;
 
-        //public UsersController(ApplicationContext db)
-        //{
-        //    _db = db;
-        //    _usersService = new UsersService(db);
 
-        //}
-        //
-        //        [HttpPost]
-        //        public IActionResult CreateUser([FromBody] UserModel userModel) // UserModel получаем из тела запроса
-        //        {
-        //            if (userModel != null)
-        //            {
-        //                // получим User из фронта UserModel
-        //                bool result = _usersService.Create(userModel);
-        //                return result ? Ok() : NotFound();
-        //            }
-        //            return BadRequest();
-        //        }
 
-        //        User newUser = new User(model.Surname, model.Name, model.Email,
-        //model.Password, model.Phone, model.Status, model.Photo);
-        //        _db.Users.Add(newUser);
-        //                _db.SaveChanges();
+
+        [HttpDelete("{id}")]
+        public bool Delete(int id)
+        {
+            Emploee emploee = _db.Emploees.FirstOrDefault(u => u.Id == id);
+            if (emploee != null)
+            {
+                try
+                {
+                    _db.Emploees.Remove(emploee);
+                    _db.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+
+                    Console.WriteLine(ex.Message);
+                }
+           
+            }
+            return false;
+        }
+
+
 
     }
 }
