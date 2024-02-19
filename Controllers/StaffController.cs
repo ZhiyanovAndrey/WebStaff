@@ -21,9 +21,9 @@ namespace WebStaff.Controllers
 
         private readonly Context _db;
 
-        StaffController(Context _db)
+        public StaffController(Context db)
         {
-            _db = _db;
+            _db = db;
         }
 
 
@@ -32,14 +32,27 @@ namespace WebStaff.Controllers
         {
             if (emploeeModel != null)
             {
-                Emploee newPerson = new Emploee(emploeeModel.SurName, emploeeModel.Name, emploeeModel.ThirdName, emploeeModel.BirthDay, emploeeModel.EmploymentDate, emploeeModel.Salary);
-                _db.Emploees.Add(newPerson);
+                Emploee newEmploee = new Emploee(emploeeModel.SurName, emploeeModel.Name, emploeeModel.ThirdName,
+                    emploeeModel.BirthDay, emploeeModel.EmploymentDate, emploeeModel.Salary);
+                _db.Emploees.Add(newEmploee);
                 _db.SaveChanges();
                 return Ok();
             }
             return BadRequest();
         }
 
+
+
+        //        private readonly ApplicationContext _db;
+        //private readonly UsersService _usersService;
+
+        //public UsersController(ApplicationContext db)
+        //{
+        //    _db = db;
+        //    _usersService = new UsersService(db);
+
+        //}
+        //
         //        [HttpPost]
         //        public IActionResult CreateUser([FromBody] UserModel userModel) // UserModel получаем из тела запроса
         //        {
