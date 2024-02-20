@@ -43,6 +43,32 @@ namespace WebStaff.Controllers
 
 
 
+        [HttpPatch("{id}")]
+        public async Task<IActionResult> UpdateEmploeeAsync(int id, [FromBody] EmploeeModel emploeeModel)
+        {
+            if (emploeeModel != null)
+            {
+                Emploee emploeeForUpdate = _db.Emploees.FirstOrDefault(u => u.Id == id);
+                if (emploeeForUpdate != null)
+                {
+
+                    emploeeForUpdate.SurName = emploeeModel.SurName;
+                    emploeeForUpdate.Name = emploeeModel.Name;
+                    emploeeForUpdate.ThirdName = emploeeModel.ThirdName;
+                    emploeeForUpdate.BirthDay = emploeeModel.BirthDay;
+                    emploeeForUpdate.EmploymentDate = emploeeModel.EmploymentDate;
+                    emploeeForUpdate.Salary = emploeeModel.Salary;
+
+                    _db.Emploees.Update(emploeeForUpdate);
+                    await _db.SaveChangesAsync();
+
+                    return Ok();
+                }
+
+                return NotFound();
+            }
+            return BadRequest();
+        }
 
 
 
@@ -61,12 +87,12 @@ namespace WebStaff.Controllers
                 catch (Exception ex)
                 {
 
-                   return ex.Message;
+                    return ex.Message;
                 }
 
                 return $"Cотрудник под номером {id} удален";
             }
-            return $"Нет сотрудника под номером {id}"; 
+            return $"Нет сотрудника под номером {id}";
         }
 
 
