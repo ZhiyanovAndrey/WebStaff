@@ -44,30 +44,35 @@ namespace WebStaff.Controllers
 
 
         [HttpPatch("{id}")]
-        public async Task<IActionResult> UpdateEmploeeAsync(int id, [FromBody] EmploeeModel emploeeModel)
+        public async Task<string> UpdateEmploeeAsync(int id, [FromBody] EmploeeModel emploeeModel)
         {
             if (emploeeModel != null)
             {
                 Emploee emploeeForUpdate = _db.Emploees.FirstOrDefault(u => u.Id == id);
                 if (emploeeForUpdate != null)
                 {
+                    try
+                    {
+                        emploeeForUpdate.SurName = emploeeModel.SurName;
+                        emploeeForUpdate.Name = emploeeModel.Name;
+                        emploeeForUpdate.ThirdName = emploeeModel.ThirdName;
+                        emploeeForUpdate.BirthDay = emploeeModel.BirthDay;
+                        emploeeForUpdate.EmploymentDate = emploeeModel.EmploymentDate;
+                        emploeeForUpdate.Salary = emploeeModel.Salary;
 
-                    emploeeForUpdate.SurName = emploeeModel.SurName;
-                    emploeeForUpdate.Name = emploeeModel.Name;
-                    emploeeForUpdate.ThirdName = emploeeModel.ThirdName;
-                    emploeeForUpdate.BirthDay = emploeeModel.BirthDay;
-                    emploeeForUpdate.EmploymentDate = emploeeModel.EmploymentDate;
-                    emploeeForUpdate.Salary = emploeeModel.Salary;
-
-                    _db.Emploees.Update(emploeeForUpdate);
-                    await _db.SaveChangesAsync();
-
-                    return Ok();
+                        _db.Emploees.Update(emploeeForUpdate);
+                        await _db.SaveChangesAsync();
+                    }
+                    catch (Exception ex)
+                    {
+                        return ex.Message;
+                    }
+                    return $"Cотрудник под номером {id} обновлен";
                 }
 
-                return NotFound();
+                return $"Cотрудник под номером {id} не найден";
             }
-            return BadRequest();
+            return $"Что то пошло не так";
         }
 
 
