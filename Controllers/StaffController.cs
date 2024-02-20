@@ -28,14 +28,14 @@ namespace WebStaff.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> CreateEmploees([FromBody] EmploeeModel emploeeModel)
+        public async Task<IActionResult> CreateEmploeesAsync([FromBody] EmploeeModel emploeeModel)
         {
             if (emploeeModel != null)
             {
                 Emploee newEmploee = new Emploee(emploeeModel.SurName, emploeeModel.Name, emploeeModel.ThirdName,
                     emploeeModel.BirthDay, emploeeModel.EmploymentDate, emploeeModel.Salary);
                 _db.Emploees.Add(newEmploee);
-                _db.SaveChanges();
+                await _db.SaveChangesAsync();
                 return Ok();
             }
             return BadRequest();
@@ -48,7 +48,7 @@ namespace WebStaff.Controllers
 
 
         [HttpDelete("{id}")]
-        public string Delete(int id)
+        public async Task<string> DeleteAsync(int id)
         {
             Emploee emploee = _db.Emploees.FirstOrDefault(u => u.Id == id);
             if (emploee != null)
@@ -56,7 +56,7 @@ namespace WebStaff.Controllers
                 try
                 {
                     _db.Emploees.Remove(emploee);
-                    _db.SaveChanges();
+                    await _db.SaveChangesAsync();
                 }
                 catch (Exception ex)
                 {
@@ -64,7 +64,7 @@ namespace WebStaff.Controllers
                    return ex.Message;
                 }
 
-                return $"Cотрудника под номером {id} удален";
+                return $"Cотрудник под номером {id} удален";
             }
             return $"Нет сотрудника под номером {id}"; 
         }
